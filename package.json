@@ -2,13 +2,23 @@
   "name": "dtrim",
   "version": "1.0.0",
   "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
+  "keywords": [
+    "trimming",
+    "sanitization",
+    "sanitize",
+    "deep trim",
+    "truncate"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc --extendedDiagnostics --listEmittedFiles",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest"
   },
-  "author": "",
+  "files": [
+    "lib"
+  ],
+  "author": "Dmitry Shirokov <deadrunk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.10",
