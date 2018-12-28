@@ -1,6 +1,6 @@
 # dtrim
 
-A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitazation.
+A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.
 
 #### Installation
 

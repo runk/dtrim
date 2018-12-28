@@ -1,15 +1,15 @@
 import _ from "lodash";
 import traverse from "traverse";
 
-interface TrimmerOptions {
+interface ITrimmerOptions {
   depth: number;
   size: number;
   string: number;
   buffer: boolean;
 }
-type TrimmerOptionsInput = Partial<TrimmerOptions>;
+type ITrimmerOptionsInput = Partial<ITrimmerOptions>;
 
-const defaultOpts: TrimmerOptions = {
+const defaultOpts: ITrimmerOptions = {
   depth: 4,
   size: 64,
   string: 512,
@@ -19,7 +19,7 @@ const defaultOpts: TrimmerOptions = {
 /**
  * TODO
  */
-export const trimmer = (userOpts?: TrimmerOptionsInput) => (
+export const trimmer = (userOpts?: ITrimmerOptionsInput) => (
   input: any
 ): any => {
   const opts = _.defaults(userOpts, defaultOpts);

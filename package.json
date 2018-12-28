@@ -1,10 +1,11 @@
 {
   "name": "dtrim",
   "version": "1.0.0",
-  "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitazation.",
+  "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest"
   },
   "author": "",
