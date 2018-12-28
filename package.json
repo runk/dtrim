@@ -10,8 +10,9 @@
     "truncate"
   ],
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && tsc --extendedDiagnostics --listEmittedFiles",
+    "build": "rm -rf lib && tsc",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest"
   },
