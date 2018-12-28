@@ -25,7 +25,7 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "noUnusedParameters": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "preserveConstEnums": true,
     "removeComments": true,
     "resolveJsonModule": true,
