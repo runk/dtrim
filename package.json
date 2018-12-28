@@ -1,0 +1,26 @@
+{
+  "name": "dtrim",
+  "version": "1.0.0",
+  "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitazation.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.12",
+    "@types/traverse": "^0.6.32",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "traverse": "^0.6.6"
+  }
+}
