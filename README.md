@@ -8,6 +8,7 @@ A tool for trimming deep/lenghty javascript structures. Some potential usages ar
 npm i dtrim
 ```
 
+
 #### Usage
 
 ```javascript
