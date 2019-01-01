@@ -1,25 +1,23 @@
 import _ from "lodash";
 import traverse from "traverse";
 
-interface ITrimmerOptions {
+export interface TrimmerOptions {
   depth: number;
   size: number;
   string: number;
   buffer: boolean;
 }
-type ITrimmerOptionsInput = Partial<ITrimmerOptions>;
 
-const defaultOpts: ITrimmerOptions = {
+export type TrimmerOptionsInput = Partial<TrimmerOptions>;
+
+const defaultOpts: TrimmerOptions = {
   depth: 4,
   size: 64,
   string: 512,
   buffer: true
 };
 
-/**
- * TODO
- */
-export const trimmer = (userOpts?: ITrimmerOptionsInput) => (
+export const trimmer = (userOpts?: TrimmerOptionsInput) => (
   input: any
 ): any => {
   const opts = _.defaults(userOpts, defaultOpts);
