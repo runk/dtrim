@@ -32,6 +32,18 @@ describe("trimmer", () => {
     expect(trimmed.list).toHaveLength(16 + 1);
   });
 
+  test("different data types", () => {
+    expect(trimmer(false)).toBe(false);
+    expect(trimmer(true)).toBe(true);
+    expect(trimmer("hi")).toBe("hi");
+    expect(trimmer(123)).toBe(123);
+    expect(trimmer(null)).toBe(null);
+    expect(trimmer(undefined)).toBe(undefined);
+    expect(trimmer('')).toBe('');
+    expect(trimmer([])).toEqual([]);
+    expect(trimmer(/test/)).toEqual(/test/);
+  })
+
   describe("rules", () => {
     test("#string", () => {
       const input = { short: "hi", long: _.repeat("a", 1024) };
