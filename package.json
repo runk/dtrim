@@ -1,6 +1,6 @@
 {
   "name": "dtrim",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "keywords": [
     "trimming",
