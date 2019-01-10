@@ -12,9 +12,7 @@ Object {
 
 exports[`trimmer large data sets 1`] = `
 Object {
-  "buffer": Object {
-    "data": "Object(1024)",
-  },
+  "buffer": "Buffer(1024)",
   "deep": Object {
     "a": Object {
       "b": Object {
