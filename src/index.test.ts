@@ -39,10 +39,10 @@ describe("trimmer", () => {
     expect(trimmer(123)).toBe(123);
     expect(trimmer(null)).toBe(null);
     expect(trimmer(undefined)).toBe(undefined);
-    expect(trimmer('')).toBe('');
+    expect(trimmer("")).toBe("");
     expect(trimmer([])).toEqual([]);
-    expect(trimmer(/test/)).toEqual(/test/);
-  })
+    expect(trimmer(/test/)).toEqual({});
+  });
 
   describe("rules", () => {
     test("#string", () => {
@@ -59,9 +59,11 @@ describe("trimmer", () => {
       expect(trimmerFactory({ buffer: true })(input)).toEqual({
         buf: "Buffer(8)"
       });
-
       expect(trimmerFactory({ buffer: false })(input)).toEqual({
-        buf: input.buf
+        buf: {
+          data: [0, 0, 0, 0, 0, 0, 0, 0],
+          type: "Buffer"
+        }
       });
     });
 

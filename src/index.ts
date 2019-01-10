@@ -1,5 +1,7 @@
 import _ from "lodash";
 import traverse from "traverse";
+// @ts-ignore
+import { parse, stringify } from "flatted";
 
 export interface TrimmerOptions {
   depth: number;
@@ -21,8 +23,8 @@ export const trimmer = (userOpts?: TrimmerOptionsInput) => (
   input: any
 ): any => {
   const opts = _.defaults(userOpts, defaultOpts);
+  const data = parse(stringify(input));
 
-  const data = _.cloneDeep(input);
   traverse(data).forEach(function context() {
     if (this.isLeaf) {
       if (_.isString(this.node) && _.size(this.node) > opts.string) {
@@ -48,8 +50,12 @@ export const trimmer = (userOpts?: TrimmerOptionsInput) => (
       }
     }
 
-    if (opts.buffer && _.isBuffer(this.node)) {
-      this.update(`Buffer(${this.node.length})`, true);
+    if (
+      opts.buffer &&
+      this.node.type === "Buffer" &&
+      _.isArray(this.node.data)
+    ) {
+      this.update(`Buffer(${this.node.data.length})`, true);
     }
 
     if (this.level > opts.depth) {
