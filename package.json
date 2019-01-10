@@ -14,7 +14,8 @@
   "scripts": {
     "build": "rm -rf lib && tsc",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest"
+    "test": "jest",
+    "prerelease": "npm run build"
   },
   "files": [
     "lib"
