@@ -29,7 +29,7 @@ describe("trimmer", () => {
     const input = { list: _.range(0, 1024) };
     const trimmed = trimmer(input);
     expect(input.list).toHaveLength(1024);
-    expect(trimmed.list).toHaveLength(16 + 1);
+    expect(trimmed.list).toBe("Array(1024)");
   });
 
   test("different data types", () => {
@@ -60,10 +60,7 @@ describe("trimmer", () => {
         buf: "Buffer(8)"
       });
       expect(trimmerFactory({ buffer: false })(input)).toEqual({
-        buf: {
-          data: [0, 0, 0, 0, 0, 0, 0, 0],
-          type: "Buffer"
-        }
+        buf: "AAAAAAAAAAA="
       });
     });
 
@@ -74,7 +71,7 @@ describe("trimmer", () => {
       };
       expect(trimmerFactory({ depth: 3 })(input)).toEqual({
         deep: {
-          a: { b: { c: "... deeper levels trimmed" } }
+          a: { b: "[Object]" }
         },
         shallow: {
           a: { b: "quite shallow" }
@@ -94,8 +91,8 @@ describe("trimmer", () => {
 
       const output = trimmerFactory({ size: 5 })(input);
       expect(output).toEqual({
-        bigList: [0, 1, 2, 3, 4, "... 11 more items"],
-        bigObject: { data: "Object(16)" },
+        bigList: "Array(16)",
+        bigObject: "Object(16)",
         smallList: [0, 1],
         smallObject: { 0: 0, 1: 1 }
       });
