@@ -3,7 +3,10 @@
 exports[`trimmer circular structures 1`] = `
 Object {
   "backref": Object {
-    "refA": [Circular],
+    "refA": Object {
+      "backref": "[Object]",
+      "foo": "bar",
+    },
     "something": "else",
   },
   "foo": "bar",
@@ -12,36 +15,19 @@ Object {
 
 exports[`trimmer large data sets 1`] = `
 Object {
+  "bao": NaN,
+  "bar": undefined,
+  "baz": false,
   "buffer": "Buffer(1024)",
   "deep": Object {
     "a": Object {
-      "b": Object {
-        "c": "... deeper levels trimmed",
-      },
+      "b": "[Object]",
     },
   },
-  "list": Array [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    "... 1008 more items",
-  ],
-  "object": Object {
-    "data": "Object(1024)",
-  },
+  "fn": "[Function]",
+  "foo": null,
+  "list": "Array(1024)",
+  "object": "Object(1024)",
   "string": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...",
 }
 `;
@@ -53,13 +39,13 @@ Object {
     "data": Object {
       "_boundary": "--------------------------012345...",
       "_currentStream": null,
-      "_events": Object {},
+      "_events": "[Object]",
       "_eventsCount": 0,
       "_overheadLength": 283,
       "_released": true,
-      "_streams": Array [],
+      "_streams": "[Object]",
       "_valueLength": 9523,
-      "_valuesToMeasure": Array [],
+      "_valuesToMeasure": "[Object]",
       "dataSize": 0,
       "maxDataSize": 2097152,
       "pauseStreams": true,
@@ -82,9 +68,7 @@ Object {
     "xsrfCookieName": "XSRF-TOKEN",
     "xsrfHeaderName": "X-XSRF-TOKEN",
   },
-  "request": Object {
-    "data": "Object(34)",
-  },
+  "request": "Object(34)",
   "response": Object {
     "config": "~config",
     "data": "",

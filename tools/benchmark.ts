@@ -1,23 +1,21 @@
 import { Suite } from "benchmark";
-import data from "./data.json";
+import data from "../src/__mocks__/fixture-real-world";
 import { trimmer } from "../src";
 
 const suite = new Suite();
 
 const trim = trimmer();
 
-// add tests
+/**
+ * Baseline is 42,707 ops/sec with fixture-real-world fixture
+ */
 suite
-  .add("RegExp#test", () => {
+  .add("main", () => {
     trim(data);
   })
-  // add listeners
   .on("cycle", (event: any) => {
+    /*tslint:disable:no-console */
     console.log(String(event.target));
   })
-  .on("complete", function() {
-    // @ts-ignore
-    console.log("Fastest is " + this.filter("fastest").map("name"));
-  })
-  // run async
+  .on("complete", () => {})
   .run({ async: true });
