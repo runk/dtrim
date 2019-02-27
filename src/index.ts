@@ -19,48 +19,48 @@ const defaultOpts: TrimmerOptions = {
   buffer: true
 };
 
-export const trimmer = (userOpts?: TrimmerOptionsInput) => (
-  input: any
-): any => {
+export const trimmer = (userOpts?: TrimmerOptionsInput) => {
   const opts = _.defaults(userOpts, defaultOpts);
-  const data = parse(stringify(input));
+  return (input: any): any => {
+    const data = parse(stringify(input));
 
-  traverse(data).forEach(function context() {
-    if (this.isLeaf) {
-      if (_.isString(this.node) && _.size(this.node) > opts.string) {
-        this.update(`${this.node.substr(0, opts.string)}...`, true);
+    traverse(data).forEach(function context() {
+      if (this.isLeaf) {
+        if (_.isString(this.node) && _.size(this.node) > opts.string) {
+          this.update(`${this.node.substr(0, opts.string)}...`, true);
+        }
+
+        return;
       }
 
-      return;
-    }
-
-    if (
-      (_.isArray(this.node) || _.isObject(this.node)) &&
-      _.size(this.node) > opts.size
-    ) {
-      if (_.isArray(this.node)) {
-        this.update(
-          _.concat(
-            _.slice(this.node, 0, opts.size),
-            `... ${this.node.length - opts.size} more items`
-          )
-        );
-      } else {
-        this.update({ data: `Object(${_.size(this.node)})` });
+      if (
+        (_.isArray(this.node) || _.isObject(this.node)) &&
+        _.size(this.node) > opts.size
+      ) {
+        if (_.isArray(this.node)) {
+          this.update(
+            _.concat(
+              _.slice(this.node, 0, opts.size),
+              `... ${this.node.length - opts.size} more items`
+            )
+          );
+        } else {
+          this.update({ data: `Object(${_.size(this.node)})` });
+        }
       }
-    }
 
-    if (
-      opts.buffer &&
-      this.node.type === "Buffer" &&
-      _.isArray(this.node.data)
-    ) {
-      this.update(`Buffer(${this.node.data.length})`, true);
-    }
+      if (
+        opts.buffer &&
+        this.node.type === "Buffer" &&
+        _.isArray(this.node.data)
+      ) {
+        this.update(`Buffer(${this.node.data.length})`, true);
+      }
 
-    if (this.level > opts.depth) {
-      this.update("... deeper levels trimmed", true);
-    }
-  });
-  return data;
+      if (this.level > opts.depth) {
+        this.update("... deeper levels trimmed", true);
+      }
+    });
+    return data;
+  };
 };
