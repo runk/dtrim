@@ -1,7 +1,4 @@
 import _ from "lodash";
-import traverse from "traverse";
-// @ts-ignore
-import { parse, stringify } from "flatted";
 
 export interface TrimmerOptions {
   depth: number;
@@ -19,48 +16,61 @@ const defaultOpts: TrimmerOptions = {
   buffer: true
 };
 
-export const trimmer = (userOpts?: TrimmerOptionsInput) => (
-  input: any
-): any => {
-  const opts = _.defaults(userOpts, defaultOpts);
-  const data = parse(stringify(input));
+const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
+  if (typeof node === "string") {
+    return node.length > opts.string
+      ? `${node.substr(0, opts.string)}...`
+      : node;
+  }
 
-  traverse(data).forEach(function context() {
-    if (this.isLeaf) {
-      if (_.isString(this.node) && _.size(this.node) > opts.string) {
-        this.update(`${this.node.substr(0, opts.string)}...`, true);
-      }
+  if (
+    typeof node === "number" ||
+    typeof node === "boolean" ||
+    typeof node === "undefined" ||
+    node === null
+  ) {
+    return node;
+  }
 
-      return;
+  if (typeof node === "function") {
+    return "[Function]";
+  }
+
+  if (depth >= opts.depth) {
+    return "[Object]";
+  }
+
+  if (Buffer.isBuffer(node)) {
+    return opts.buffer
+      ? `Buffer(${node.length})`
+      : walker(opts, node.toString("base64"), depth + 1);
+  }
+
+  const size = _.size(node);
+  if (size > opts.size) {
+    if (_.isArray(node)) {
+      return `Array(${size})`;
     }
+    return `Object(${size})`;
+  }
 
-    if (
-      (_.isArray(this.node) || _.isObject(this.node)) &&
-      _.size(this.node) > opts.size
-    ) {
-      if (_.isArray(this.node)) {
-        this.update(
-          _.concat(
-            _.slice(this.node, 0, opts.size),
-            `... ${this.node.length - opts.size} more items`
-          )
-        );
-      } else {
-        this.update({ data: `Object(${_.size(this.node)})` });
-      }
-    }
-
-    if (
-      opts.buffer &&
-      this.node.type === "Buffer" &&
-      _.isArray(this.node.data)
-    ) {
-      this.update(`Buffer(${this.node.data.length})`, true);
-    }
-
-    if (this.level > opts.depth) {
-      this.update("... deeper levels trimmed", true);
-    }
+  const output = Array.isArray(node) ? [] : {};
+  _.forEach(node, (val, key) => {
+    // @ts-ignore
+    output[key] = walker(opts, val, depth + 1);
   });
-  return data;
+
+  return output;
+};
+
+export const trimmer = (userOpts?: TrimmerOptionsInput) => {
+  const opts = _.defaults(userOpts, defaultOpts);
+
+  return (input: any): any => {
+    if (typeof input !== "object" || input === null) {
+      return input;
+    }
+
+    return walker(opts, input, 0);
+  };
 };
