@@ -17,5 +17,5 @@ suite
     /*tslint:disable:no-console */
     console.log(String(event.target));
   })
-  .on("complete", () => {})
+  // .on("complete", () => {})
   .run({ async: true });
