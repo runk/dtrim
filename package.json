@@ -28,16 +28,16 @@
   "author": "Dmitry Shirokov <deadrunk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/benchmark": "^1.0.31",
+    "@types/benchmark": "1.0.31",
     "@types/jest": "23.3.10",
     "@types/lodash": "4.14.119",
     "@types/node": "10.12.12",
-    "benchmark": "^2.1.4",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.17.0",
-    "typescript": "^3.5.2"
+    "benchmark": "2.1.4",
+    "jest": "24.8.0",
+    "ts-jest": "24.0.2",
+    "ts-node": "8.3.0",
+    "tslint": "5.17.0",
+    "typescript": "3.5.2"
   },
   "dependencies": {
     "lodash": "^4"
