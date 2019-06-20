@@ -44,6 +44,24 @@ describe("trimmer", () => {
     expect(trimmer(/test/)).toEqual({});
   });
 
+  describe("errors", () => {
+    test("basic", () => {
+      const output = trimmer(new Error("Very bad"));
+      expect(output.message).toBe("Very bad");
+      expect(output.name).toBe("Error");
+      expect(output.stack).toMatch(/^Error: Very bad\n\s+at.{50,}/);
+    });
+
+    test("customized", () => {
+      const error = new Error("Very bad");
+      // @ts-ignore
+      error.extra = { foo: "bar" };
+      const output = trimmer(error);
+      expect(output.message).toBe("Very bad");
+      expect(output.extra).toEqual({ foo: "bar" });
+    });
+  });
+
   describe("rules", () => {
     test("#string", () => {
       const input = { short: "hi", long: _.repeat("a", 1024) };

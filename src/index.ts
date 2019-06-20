@@ -54,9 +54,14 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     return `Object(${size})`;
   }
 
-  const output = Array.isArray(node) ? [] : {};
+  const output: Record<string, any> = Array.isArray(node) ? [] : {};
+  if (node instanceof Error) {
+    output.message = node.message;
+    output.stack = node.stack;
+    output.name = node.name;
+  }
+
   _.forEach(node, (val, key) => {
-    // @ts-ignore
     output[key] = walker(opts, val, depth + 1);
   });
 
