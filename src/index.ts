@@ -1,4 +1,4 @@
-import _ from "lodash";
+import * as utils from "./utils";
 
 export interface TrimmerOptions {
   depth: number;
@@ -46,9 +46,9 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
       : walker(opts, node.toString("base64"), depth + 1);
   }
 
-  const size = _.size(node);
+  const size = utils.getSize(node);
   if (size > opts.size) {
-    if (_.isArray(node)) {
+    if (Array.isArray(node)) {
       return `Array(${size})`;
     }
     return `Object(${size})`;
@@ -61,16 +61,15 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     output.name = node.name;
   }
 
-  _.forEach(node, (val, key) => {
-    output[key] = walker(opts, val, depth + 1);
-  });
+  for (const key in node) {
+    output[key] = walker(opts, node[key], depth + 1);
+  }
 
   return output;
 };
 
 export const trimmer = (userOpts?: TrimmerOptionsInput) => {
-  const opts = _.defaults(userOpts, defaultOpts);
-
+  const opts = { ...defaultOpts, ...userOpts };
   return (input: any): any => {
     if (typeof input !== "object" || input === null) {
       return input;
