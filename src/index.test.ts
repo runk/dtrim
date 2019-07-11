@@ -5,48 +5,48 @@ import fixtureLarge from "./__mocks__/fixture-large";
 import fixtureRealWorld from "./__mocks__/fixture-real-world";
 
 describe("trimmer", () => {
-  const trimmer = trimmerFactory({
+  const defaultTrimmer = trimmerFactory({
     depth: 3,
     string: 32,
     size: 16
   });
 
   test("large data sets", () =>
-    expect(trimmer(fixtureLarge)).toMatchSnapshot());
+    expect(defaultTrimmer(fixtureLarge)).toMatchSnapshot());
 
   test("real world example", () =>
-    expect(trimmer(fixtureRealWorld)).toMatchSnapshot());
+    expect(defaultTrimmer(fixtureRealWorld)).toMatchSnapshot());
 
   test("circular structures", () => {
     const refA = { foo: "bar" };
     const refB = { refA, something: "else" };
     // @ts-ignore
     refA.backref = refB;
-    expect(trimmer(refA)).toMatchSnapshot();
+    expect(defaultTrimmer(refA)).toMatchSnapshot();
   });
 
   test("immutability", () => {
     const input = { list: _.range(0, 1024) };
-    const trimmed = trimmer(input);
+    const trimmed = defaultTrimmer(input);
     expect(input.list).toHaveLength(1024);
     expect(trimmed.list).toBe("Array(1024)");
   });
 
   test("different data types", () => {
-    expect(trimmer(false)).toBe(false);
-    expect(trimmer(true)).toBe(true);
-    expect(trimmer("hi")).toBe("hi");
-    expect(trimmer(123)).toBe(123);
-    expect(trimmer(null)).toBe(null);
-    expect(trimmer(undefined)).toBe(undefined);
-    expect(trimmer("")).toBe("");
-    expect(trimmer([])).toEqual([]);
-    expect(trimmer(/test/)).toEqual({});
+    expect(defaultTrimmer(false)).toBe(false);
+    expect(defaultTrimmer(true)).toBe(true);
+    expect(defaultTrimmer("hi")).toBe("hi");
+    expect(defaultTrimmer(123)).toBe(123);
+    expect(defaultTrimmer(null)).toBe(null);
+    expect(defaultTrimmer(undefined)).toBe(undefined);
+    expect(defaultTrimmer("")).toBe("");
+    expect(defaultTrimmer([])).toEqual([]);
+    expect(defaultTrimmer(/test/)).toEqual({});
   });
 
   describe("errors", () => {
     test("basic", () => {
-      const output = trimmer(new Error("Very bad"));
+      const output = defaultTrimmer(new Error("Very bad"));
       expect(output.message).toBe("Very bad");
       expect(output.name).toBe("Error");
       expect(output.stack).toMatch(/^Error: Very bad\n\s+at.{50,}/);
@@ -56,7 +56,7 @@ describe("trimmer", () => {
       const error = new Error("Very bad");
       // @ts-ignore
       error.extra = { foo: "bar" };
-      const output = trimmer(error);
+      const output = defaultTrimmer(error);
       expect(output.message).toBe("Very bad");
       expect(output.extra).toEqual({ foo: "bar" });
     });
@@ -65,8 +65,7 @@ describe("trimmer", () => {
   describe("rules", () => {
     test("#string", () => {
       const input = { short: "hi", long: _.repeat("a", 1024) };
-      const trimmer = trimmerFactory({ string: 4 });
-      expect(trimmer(input)).toEqual({
+      expect(trimmerFactory({ string: 4 })(input)).toEqual({
         short: "hi",
         long: "aaaa..."
       });

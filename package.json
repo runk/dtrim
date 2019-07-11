@@ -1,6 +1,6 @@
 {
   "name": "dtrim",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "keywords": [
     "trimming",
@@ -34,12 +34,10 @@
     "@types/node": "10.14.12",
     "benchmark": "2.1.4",
     "jest": "24.8.0",
+    "lodash": "^4",
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
     "typescript": "3.5.3"
-  },
-  "dependencies": {
-    "lodash": "^4"
   }
 }
