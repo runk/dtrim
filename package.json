@@ -1,6 +1,6 @@
 {
   "name": "dtrim",
-  "version": "1.9.0",
+  "version": "0.0.0-development",
   "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "keywords": [
     "trimming",
@@ -16,7 +16,8 @@
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "benchmark": "ts-node tools/benchmark.ts",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "semantic-release": "semantic-release"
   },
   "files": [
     "lib"
@@ -38,6 +39,7 @@
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "semantic-release": "^15.13.18"
   }
 }
