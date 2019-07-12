@@ -3,6 +3,7 @@ import { trimmer as trimmerFactory } from ".";
 
 import fixtureLarge from "./__mocks__/fixture-large";
 import fixtureRealWorld from "./__mocks__/fixture-real-world";
+import fixtureTypes from "./__mocks__/fixture-types";
 
 describe("trimmer", () => {
   const defaultTrimmer = trimmerFactory({
@@ -16,6 +17,9 @@ describe("trimmer", () => {
 
   test("real world example", () =>
     expect(defaultTrimmer(fixtureRealWorld)).toMatchSnapshot());
+
+  test("misc types", () =>
+    expect(defaultTrimmer(fixtureTypes)).toMatchSnapshot());
 
   test("circular structures", () => {
     const refA = { foo: "bar" };
