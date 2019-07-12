@@ -35,11 +35,11 @@
     "@types/node": "10.14.12",
     "benchmark": "2.1.4",
     "jest": "24.8.0",
-    "lodash": "^4",
+    "lodash": "4.17.13",
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
     "typescript": "3.5.3",
-    "semantic-release": "^15.13.18"
+    "semantic-release": "15.13.18"
   }
 }
