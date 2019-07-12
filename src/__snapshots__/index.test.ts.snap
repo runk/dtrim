@@ -32,6 +32,31 @@ Object {
 }
 `;
 
+exports[`trimmer misc types 1`] = `
+Object {
+  "array": Array [
+    "foo",
+    "bar",
+  ],
+  "bao": NaN,
+  "bar": undefined,
+  "baz": false,
+  "big": Object {},
+  "buffer": "Buffer(3)",
+  "fn": "[Function]",
+  "foo": null,
+  "gao": 123,
+  "map": Object {},
+  "object": Object {
+    "foo": "bar",
+  },
+  "set": Object {},
+  "shao": 123.321,
+  "string": "foo bar",
+  "sym": Object {},
+}
+`;
+
 exports[`trimmer real world example 1`] = `
 Object {
   "config": Object {

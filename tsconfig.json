@@ -19,7 +19,8 @@
       "es2015.symbol.wellknown",
       "es2017.object",
       "es2018.promise",
-      "esnext.asynciterable"
+      "esnext.asynciterable",
+      "esnext.bigint"
     ],
     "listEmittedFiles": true,
     "module": "commonjs",
