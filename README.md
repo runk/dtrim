@@ -1,6 +1,15 @@
 # dtrim [![Build Status](https://api.travis-ci.org/runk/dtrim.svg?branch=master)](https://travis-ci.org/runk/dtrim)
 
-A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.
+A tool for trimming deep/lenghty javascript structures. Fully configurable. Some potential usages are: debugging, logging or data sanitization.
+
+Caters for:
+
+- Big arrays
+- Objects with lots of keys
+- Objects with a deep nesting
+- Objects with circular references
+- Long strings
+- Buffers
 
 #### Installation
 
