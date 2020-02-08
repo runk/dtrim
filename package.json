@@ -34,7 +34,7 @@
     "@types/lodash": "4.14.137",
     "@types/node": "10.17.14",
     "benchmark": "2.1.4",
-    "jest": "24.9.0",
+    "jest": "25.1.0",
     "lodash": "4.17.15",
     "ts-jest": "24.3.0",
     "ts-node": "8.6.2",
