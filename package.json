@@ -40,6 +40,6 @@
     "ts-node": "8.10.1",
     "tslint": "6.1.2",
     "typescript": "3.9.3",
-    "semantic-release": "17.0.4"
+    "semantic-release": "17.0.8"
   }
 }
