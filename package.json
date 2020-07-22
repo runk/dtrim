@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/benchmark": "1.0.33",
     "@types/jest": "26.0.5",
-    "@types/lodash": "4.14.157",
+    "@types/lodash": "4.14.158",
     "@types/node": "10.17.14",
     "benchmark": "2.1.4",
     "jest": "26.1.0",
