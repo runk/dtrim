@@ -30,7 +30,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/benchmark": "1.0.33",
-    "@types/jest": "26.0.13",
+    "@types/jest": "26.0.14",
     "@types/lodash": "4.14.161",
     "@types/node": "10.17.14",
     "benchmark": "2.1.4",
