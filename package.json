@@ -29,7 +29,7 @@
   "author": "Dmitry Shirokov <deadrunk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/benchmark": "1.0.33",
+    "@types/benchmark": "2.1.0",
     "@types/jest": "26.0.15",
     "@types/lodash": "4.14.164",
     "@types/node": "10.17.14",
