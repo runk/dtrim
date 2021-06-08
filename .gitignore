@@ -4,3 +4,4 @@ coverage
 .vscode
 *.todo
 lib
+package-lock.json
