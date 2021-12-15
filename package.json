@@ -32,7 +32,7 @@
     "@types/benchmark": "2.1.1",
     "@types/jest": "27.0.3",
     "@types/lodash": "4.14.178",
-    "@types/node": "16.11.13",
+    "@types/node": "16.11.14",
     "benchmark": "2.1.4",
     "jest": "27.4.5",
     "lodash": "4.17.21",
