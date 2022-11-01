@@ -1,11 +1,11 @@
 const toString = Object.prototype.toString;
 
-const mapTag = "[object Map]";
-const setTag = "[object Set]";
+const mapTag = '[object Map]';
+const setTag = '[object Set]';
 
 export const getTag = (value: unknown): string => {
   if (value == null) {
-    return value === undefined ? "[object Undefined]" : "[object Null]";
+    return value === undefined ? '[object Undefined]' : '[object Null]';
   }
   return toString.call(value);
 };

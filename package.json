@@ -13,8 +13,9 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
+    "test": "ava",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "benchmark": "ts-node tools/benchmark.ts",
     "prepublish": "npm run build",
     "semantic-release": "semantic-release"
@@ -30,16 +31,27 @@
   "license": "MIT",
   "devDependencies": {
     "@types/benchmark": "2.1.2",
-    "@types/jest": "28.1.8",
     "@types/lodash": "4.14.187",
     "@types/node": "18.11.9",
     "benchmark": "2.1.4",
-    "jest": "28.1.3",
     "lodash": "4.17.21",
+    "prettier": "^2.7.1",
     "semantic-release": "19.0.5",
-    "ts-jest": "28.0.8",
     "ts-node": "10.9.1",
-    "tslint": "6.1.3",
     "typescript": "4.8.4"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "files": [
+      "**/*.test.ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "dependencies": {
+    "ava": "^5.0.1"
   }
 }
