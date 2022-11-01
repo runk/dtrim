@@ -1,26 +1,27 @@
-import * as utils from "./utils";
+import * as utils from './utils';
+import test, { ExecutionContext } from 'ava';
 
-describe("utils", () => {
-  describe("getTag", () => {
-    const helper = (input: any, expected: string) =>
-      expect(utils.getTag(input)).toBe(expected);
-    test("string", () => helper("string", "[object String]"));
-    test("null", () => helper(null, "[object Null]"));
-    test("undefined", () => helper(undefined, "[object Undefined]"));
-    test("function", () => helper(() => null, "[object Function]"));
-    test("object", () => helper({}, "[object Object]"));
-  });
+(() => {
+  const helper = (t: ExecutionContext, input: any, expected: string) =>
+    t.deepEqual(utils.getTag(input), expected);
 
-  describe("getSize", () => {
-    const helper = (input: any, expected: number) =>
-      expect(utils.getSize(input)).toBe(expected);
-    test("string", () => helper("string", 6));
-    test("null", () => helper(null, 0));
-    test("undefined", () => helper(undefined, 0));
-    test("boolean", () => helper(false, 0));
-    test("array", () => helper([1, 2, 3], 3));
-    test("object", () => helper({ a: 1, b: 2 }, 2));
-    test("map", () => helper(new Map(), 0));
-    test("set", () => helper(new Set(), 0));
-  });
-});
+  test('getTag: string', (t) => helper(t, 'string', '[object String]'));
+  test('getTag: null', (t) => helper(t, null, '[object Null]'));
+  test('getTag: undefined', (t) => helper(t, undefined, '[object Undefined]'));
+  test('getTag: function', (t) => helper(t, () => null, '[object Function]'));
+  test('getTag: object', (t) => helper(t, {}, '[object Object]'));
+})();
+
+(() => {
+  const helper = (t: ExecutionContext, input: any, expected: number) =>
+    t.deepEqual(utils.getSize(input), expected);
+
+  test('getSize: string', (t) => helper(t, 'string', 6));
+  test('getSize: null', (t) => helper(t, null, 0));
+  test('getSize: undefined', (t) => helper(t, undefined, 0));
+  test('getSize: boolean', (t) => helper(t, false, 0));
+  test('getSize: array', (t) => helper(t, [1, 2, 3], 3));
+  test('getSize: object', (t) => helper(t, { a: 1, b: 2 }, 2));
+  test('getSize: map', (t) => helper(t, new Map(), 0));
+  test('getSize: set', (t) => helper(t, new Set(), 0));
+})();

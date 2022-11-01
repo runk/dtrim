@@ -1,4 +1,4 @@
-import * as utils from "./utils";
+import * as utils from './utils';
 
 export interface TrimmerOptions {
   depth: number;
@@ -13,37 +13,37 @@ const defaultOpts: TrimmerOptions = {
   depth: 4,
   size: 64,
   string: 512,
-  buffer: true
+  buffer: true,
 };
 
 const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
-  if (typeof node === "string") {
+  if (typeof node === 'string') {
     return node.length > opts.string
       ? `${node.substr(0, opts.string)}...`
       : node;
   }
 
   if (
-    typeof node === "number" ||
-    typeof node === "boolean" ||
-    typeof node === "undefined" ||
+    typeof node === 'number' ||
+    typeof node === 'boolean' ||
+    typeof node === 'undefined' ||
     node === null
   ) {
     return node;
   }
 
-  if (typeof node === "function") {
-    return "[Function]";
+  if (typeof node === 'function') {
+    return '[Function]';
   }
 
   if (depth >= opts.depth) {
-    return "[Object]";
+    return '[Object]';
   }
 
   if (Buffer.isBuffer(node)) {
     return opts.buffer
       ? `Buffer(${node.length})`
-      : walker(opts, node.toString("base64"), depth + 1);
+      : walker(opts, node.toString('base64'), depth + 1);
   }
 
   const size = utils.getSize(node);
@@ -71,7 +71,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
 export const trimmer = (userOpts?: TrimmerOptionsInput) => {
   const opts = { ...defaultOpts, ...userOpts };
   return (input: any): any => {
-    if (typeof input !== "object" || input === null) {
+    if (typeof input !== 'object' || input === null) {
       return input;
     }
 
