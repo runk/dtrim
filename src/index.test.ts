@@ -125,9 +125,15 @@ test('rule: #getters', (t) => {
     }
   }
   const foo = new Foo();
+  const symbol = Symbol('some desc');
+  const map = new Map();
+  const set = new Set('a');
   const input = {
     regex,
     foo,
+    symbol,
+    map,
+    set,
   };
 
   const output = trimmerFactory({ getters: false })(input);
@@ -146,6 +152,15 @@ test('rule: #getters', (t) => {
       source: 'test',
       sticky: false,
       unicode: false,
+    },
+    symbol: {
+      description: 'some desc',
+    },
+    map: {
+      size: 0,
+    },
+    set: {
+      size: 1,
     },
   });
 });
