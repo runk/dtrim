@@ -5,7 +5,7 @@ export interface TrimmerOptions {
   size: number;
   string: number;
   buffer: boolean;
-  callGetters: boolean;
+  getters: boolean;
 }
 
 export type TrimmerOptionsInput = Partial<TrimmerOptions>;
@@ -15,7 +15,7 @@ const defaultOpts: TrimmerOptions = {
   size: 64,
   string: 512,
   buffer: true,
-  callGetters: false,
+  getters: true,
 };
 
 const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
@@ -67,7 +67,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     output[key] = walker(opts, node[key], depth + 1);
   }
 
-  if (opts.callGetters) {
+  if (opts.getters === false) {
     const prototype = Object.getPrototypeOf(node);
     if (prototype) {
       const methods = Object.getOwnPropertyDescriptors(prototype);

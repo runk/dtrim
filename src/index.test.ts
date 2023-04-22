@@ -113,7 +113,7 @@ test('rule: #size', (t) => {
   });
 });
 
-test('rule: #callGetters', (t) => {
+test('rule: #getters', (t) => {
   const regex = /test/;
   class Foo {
     get foo() {
@@ -126,7 +126,7 @@ test('rule: #callGetters', (t) => {
     foo,
   };
 
-  const output = trimmerFactory({ callGetters: true })(input);
+  const output = trimmerFactory({ getters: false })(input);
 
   t.deepEqual(output, {
     foo: {
