@@ -112,3 +112,55 @@ test('rule: #size', (t) => {
     smallObject: { 0: 0, 1: 1 },
   });
 });
+
+test('rule: #getters', (t) => {
+  const regex = /test/;
+  class Foo {
+    get foo() {
+      return 'foo';
+    }
+    set bar(_arg: any) {}
+    public baz() {
+      return 'baz';
+    }
+  }
+  const foo = new Foo();
+  const symbol = Symbol('some desc');
+  const map = new Map();
+  const set = new Set('a');
+  const input = {
+    regex,
+    foo,
+    symbol,
+    map,
+    set,
+  };
+
+  const output = trimmerFactory({ getters: false })(input);
+
+  t.deepEqual(output, {
+    foo: {
+      foo: 'foo',
+    },
+    regex: {
+      dotAll: false,
+      flags: '',
+      global: false,
+      hasIndices: false,
+      ignoreCase: false,
+      multiline: false,
+      source: 'test',
+      sticky: false,
+      unicode: false,
+    },
+    symbol: {
+      description: 'some desc',
+    },
+    map: {
+      size: 0,
+    },
+    set: {
+      size: 1,
+    },
+  });
+});
