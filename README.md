@@ -1,4 +1,4 @@
-# dtrim
+# dtrim ![Status](https://github.com/runk/dtrim/actions/workflows/release.yml/badge.svg)
 
 _dtrim_ is a tool for trimming deep/lengthy javascript structures. Some potential usages are: debugging, logging or data sanitization. Fully configurable.
 
@@ -20,8 +20,8 @@ npm i dtrim
 
 #### Usage
 
-```javascript
-const dtrim = require('dtrim');
+```typescript
+import * as dtrim from 'dtrim'
 
 const trim = dtrim.trimmer({ depth: 4 });
 const nasty = { ... a big, deep and nasty object here ... };
