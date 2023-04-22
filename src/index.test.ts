@@ -42,7 +42,17 @@ test('different data types', (t) => {
   t.is(defaultTrimmer(undefined), undefined);
   t.is(defaultTrimmer(''), '');
   t.deepEqual(defaultTrimmer([]), []);
-  t.deepEqual(defaultTrimmer(/test/), {});
+  t.deepEqual(defaultTrimmer(/test/), {
+    dotAll: false,
+    flags: '',
+    global: false,
+    hasIndices: false,
+    ignoreCase: false,
+    multiline: false,
+    source: 'test',
+    sticky: false,
+    unicode: false,
+  });
 });
 
 test('errors: basic', (t) => {

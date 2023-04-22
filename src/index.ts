@@ -65,6 +65,16 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     output[key] = walker(opts, node[key], depth + 1);
   }
 
+  const prototype = Object.getPrototypeOf(node);
+  if (prototype) {
+    const methods = Object.getOwnPropertyDescriptors(prototype);
+    for (const key in methods) {
+      if (methods[key].get) {
+        output[key] = walker(opts, node[key], depth + 1);
+      }
+    }
+  }
+
   return output;
 };
 
