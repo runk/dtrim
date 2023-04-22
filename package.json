@@ -28,6 +28,9 @@
     "url": "https://github.com/runk/dtrim"
   },
   "author": "Dmitry Shirokov <deadrunk@gmail.com>",
+  "contributors": [
+    "Sam Chung @samchungy"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/benchmark": "2.1.2",

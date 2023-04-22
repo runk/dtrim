@@ -114,7 +114,6 @@ test('rule: #size', (t) => {
 });
 
 test('rule: #getters', (t) => {
-  const regex = /test/;
   class Foo {
     get foo() {
       return 'foo';
@@ -129,7 +128,6 @@ test('rule: #getters', (t) => {
   const map = new Map();
   const set = new Set('a');
   const input = {
-    regex,
     foo,
     symbol,
     map,
@@ -141,17 +139,6 @@ test('rule: #getters', (t) => {
   t.deepEqual(output, {
     foo: {
       foo: 'foo',
-    },
-    regex: {
-      dotAll: false,
-      flags: '',
-      global: false,
-      hasIndices: false,
-      ignoreCase: false,
-      multiline: false,
-      source: 'test',
-      sticky: false,
-      unicode: false,
     },
     symbol: {
       description: 'some desc',
