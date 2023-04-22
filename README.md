@@ -38,6 +38,7 @@ _dtrim.trimmer([options])_
   - `size`: `<number>` Trim size - all objects and arrays that are longer/bigger than specified size will be trimmed. Note on trimming objects: because order of properties is not guaranteed by javascript spec, objects with number of properties bigger than _size_ will be represented as string `"Object(N)"`. To make it return full structure, pass `Infinity` or some arbitrary large number. _Default_: `64`.
   - `string`: `<number>` Trim strings that are longer than specified number. To make it return full structure, pass `Infinity` or some arbitrary large number. _Default_: `512`.
   - `buffer`: `<boolean>` Substitues instances of a `Buffer` object with their string representation: `"Buffer(N)"`. _Default_: `true`.
+  - `callGetters`: `<boolean>` Call getter fields on objects and classes and adds them to the result`. _Default_: `false`.
 
 - Returns: `<Function>` - trimmer function that accepts input argument of any type.
 

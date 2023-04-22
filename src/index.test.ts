@@ -42,17 +42,7 @@ test('different data types', (t) => {
   t.is(defaultTrimmer(undefined), undefined);
   t.is(defaultTrimmer(''), '');
   t.deepEqual(defaultTrimmer([]), []);
-  t.deepEqual(defaultTrimmer(/test/), {
-    dotAll: false,
-    flags: '',
-    global: false,
-    hasIndices: false,
-    ignoreCase: false,
-    multiline: false,
-    source: 'test',
-    sticky: false,
-    unicode: false,
-  });
+  t.deepEqual(defaultTrimmer(/test/), {});
 });
 
 test('errors: basic', (t) => {
@@ -120,5 +110,38 @@ test('rule: #size', (t) => {
     bigObject: 'Object(16)',
     smallList: [0, 1],
     smallObject: { 0: 0, 1: 1 },
+  });
+});
+
+test('rule: #callGetters', (t) => {
+  const regex = /test/;
+  class Foo {
+    get foo() {
+      return 'foo';
+    }
+  }
+  const foo = new Foo();
+  const input = {
+    regex,
+    foo,
+  };
+
+  const output = trimmerFactory({ callGetters: true })(input);
+
+  t.deepEqual(output, {
+    foo: {
+      foo: 'foo',
+    },
+    regex: {
+      dotAll: false,
+      flags: '',
+      global: false,
+      hasIndices: false,
+      ignoreCase: false,
+      multiline: false,
+      source: 'test',
+      sticky: false,
+      unicode: false,
+    },
   });
 });
