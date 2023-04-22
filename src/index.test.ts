@@ -119,6 +119,7 @@ test('rule: #getters', (t) => {
     get foo() {
       return 'foo';
     }
+    set foo(_arg) {}
   }
   const foo = new Foo();
   const input = {
