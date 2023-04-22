@@ -119,7 +119,10 @@ test('rule: #getters', (t) => {
     get foo() {
       return 'foo';
     }
-    set foo(_arg) {}
+    set bar(_arg: any) {}
+    public baz() {
+      return 'baz';
+    }
   }
   const foo = new Foo();
   const input = {
