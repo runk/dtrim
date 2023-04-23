@@ -39,6 +39,7 @@ _dtrim.trimmer([options])_
   - `string`: `<number>` Trim strings that are longer than specified number. To make it return full structure, pass `Infinity` or some arbitrary large number. _Default_: `512`.
   - `buffer`: `<boolean>` Substitues instances of a `Buffer` object with their string representation: `"Buffer(N)"`. _Default_: `true`.
   - `getters`: `<boolean>` Omits getter fields in objects and classes from the result. _Default_: `true`.
+  - `ignore`: `<Record<string, unknown>>` A record of paths to ignore while at depth 0. For example trimming `{a: FooClass}` with `{ignore: { a: true }}` will result in `{a: FooClass}`. _Default_: `{}`
 
 - Returns: `<Function>` - trimmer function that accepts input argument of any type.
 
