@@ -170,7 +170,7 @@ test('rule: #ignore', (t) => {
   };
 
   const output = trimmerFactory({
-    ignore: { a: () => {}, c: () => {} },
+    retain: new Set(['a', 'c']),
   })(input);
 
   t.deepEqual(output, {

@@ -6,7 +6,7 @@ export interface TrimmerOptions {
   string: number;
   buffer: boolean;
   getters: boolean;
-  ignore: Record<string, unknown>;
+  retain: Set<string>;
 }
 
 export type TrimmerOptionsInput = Partial<TrimmerOptions>;
@@ -17,7 +17,7 @@ const defaultOpts: TrimmerOptions = {
   string: 512,
   buffer: true,
   getters: true,
-  ignore: {},
+  retain: new Set(),
 };
 
 const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
@@ -66,7 +66,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
   }
 
   for (const key in node) {
-    if (depth === 0 && opts.ignore[key]) {
+    if (depth === 0 && opts.retain.has(key)) {
       output[key] = node[key];
       continue;
     }
