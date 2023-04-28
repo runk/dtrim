@@ -151,3 +151,31 @@ test('rule: #getters', (t) => {
     },
   });
 });
+
+test('rule: #ignore', (t) => {
+  class Foo {
+    get foo() {
+      return 'foo';
+    }
+    set bar(_arg: any) {}
+    public baz() {
+      return 'baz';
+    }
+  }
+  const foo = new Foo();
+  const input = {
+    a: foo,
+    b: foo,
+    c: foo,
+  };
+
+  const output = trimmerFactory({
+    retain: new Set(['a', 'c']),
+  })(input);
+
+  t.deepEqual(output, {
+    a: foo,
+    b: {},
+    c: foo,
+  });
+});
