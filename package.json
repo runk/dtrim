@@ -36,6 +36,7 @@
     "@types/benchmark": "2.1.2",
     "@types/lodash": "4.14.194",
     "@types/node": "18.16.2",
+    "ava": "^5.0.1",
     "benchmark": "2.1.4",
     "lodash": "4.17.21",
     "prettier": "^2.7.1",
@@ -54,7 +55,5 @@
       "ts-node/register"
     ]
   },
-  "dependencies": {
-    "ava": "^5.0.1"
-  }
+  "dependencies": {}
 }
