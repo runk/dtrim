@@ -65,16 +65,27 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     output.name = node.name;
   }
 
+  const prototype = Object.getPrototypeOf(node);
+
   for (const key in node) {
     if (depth === 0 && opts.retain.has(key)) {
       output[key] = node[key];
       continue;
     }
+
+    if (
+      opts.getters === true &&
+      prototype &&
+      Object.getOwnPropertyDescriptor(node, key)?.get
+    ) {
+      output[key] = '[Getter]';
+      continue;
+    }
+
     output[key] = walker(opts, node[key], depth + 1);
   }
 
   if (opts.getters === false) {
-    const prototype = Object.getPrototypeOf(node);
     if (prototype) {
       const methods = Object.getOwnPropertyDescriptors(prototype);
       for (const key in methods) {
