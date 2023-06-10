@@ -123,22 +123,29 @@ test('rule: #getters', (t) => {
       return 'baz';
     }
   }
+  const object = {
+    get getter() {
+      return 'getter';
+    },
+  };
   const foo = new Foo();
   const symbol = Symbol('some desc');
   const map = new Map();
   const set = new Set('a');
   const input = {
     foo,
+    object,
     symbol,
     map,
     set,
   };
 
-  const output = trimmerFactory({ getters: false })(input);
-
-  t.deepEqual(output, {
+  t.deepEqual(trimmerFactory({ getters: false })(input), {
     foo: {
       foo: 'foo',
+    },
+    object: {
+      getter: 'getter',
     },
     symbol: {
       description: 'some desc',
@@ -149,6 +156,16 @@ test('rule: #getters', (t) => {
     set: {
       size: 1,
     },
+  });
+
+  t.deepEqual(trimmerFactory({ getters: true })(input), {
+    foo: {},
+    object: {
+      getter: '[Getter]',
+    },
+    symbol: {},
+    map: {},
+    set: {},
   });
 });
 
