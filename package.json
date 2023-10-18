@@ -34,7 +34,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/benchmark": "2.1.4",
-    "@types/lodash": "4.14.199",
+    "@types/lodash": "4.14.200",
     "@types/node": "18.18.5",
     "ava": "^5.0.1",
     "benchmark": "2.1.4",
