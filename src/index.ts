@@ -40,6 +40,10 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     return '[Function]';
   }
 
+  if (node instanceof Date) {
+    return node.toISOString();
+  }
+
   if (depth >= opts.depth) {
     return '[Object]';
   }
