@@ -74,6 +74,15 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
       output[key] = node[key];
       continue;
     }
+
+    if (
+      opts.getters === true &&
+      Object.getOwnPropertyDescriptor(node, key)?.get
+    ) {
+      output[key] = '[Getter]';
+      continue;
+    }
+
     output[key] = walker(opts, node[key], depth + 1);
   }
 
