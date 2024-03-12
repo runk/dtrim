@@ -20,4 +20,5 @@ export default {
   sym: Symbol('dummy'),
   map,
   set,
+  date: new Date('2024-03-12T05:29:06.048Z'),
 };
