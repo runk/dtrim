@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/benchmark": "2.1.5",
     "@types/lodash": "4.17.13",
-    "@types/node": "22.8.6",
+    "@types/node": "22.10.1",
     "ava": "^6.0.0",
     "benchmark": "2.1.4",
     "lodash": "4.17.21",
