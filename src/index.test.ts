@@ -196,3 +196,39 @@ test('rule: #ignore', (t) => {
     c: foo,
   });
 });
+
+test('rule: #removeFunctions', (t) => {
+  const input = {
+    regularProp: 'value',
+    fn: () => 'function',
+    anotherProp: 42,
+    anotherFn: function namedFunction() {
+      return 'named';
+    },
+    nested: {
+      innerFn: () => 'inner',
+      innerProp: 'inner value',
+    },
+  };
+
+  const defaultOutput = trimmerFactory()(input);
+  t.deepEqual(defaultOutput, {
+    regularProp: 'value',
+    fn: '[Function]',
+    anotherProp: 42,
+    anotherFn: '[Function]',
+    nested: {
+      innerFn: '[Function]',
+      innerProp: 'inner value',
+    },
+  });
+
+  const removeFunctionsOutput = trimmerFactory({ functions: false })(input);
+  t.deepEqual(removeFunctionsOutput, {
+    regularProp: 'value',
+    anotherProp: 42,
+    nested: {
+      innerProp: 'inner value',
+    },
+  });
+});
