@@ -231,4 +231,11 @@ test('rule: #removeFunctions', (t) => {
       innerProp: 'inner value',
     },
   });
+
+  const fn = () => {};
+  const functionOnly = trimmerFactory()(fn);
+  t.is(functionOnly, fn);
+
+  const functionRemoved = trimmerFactory({ functions: false })(fn);
+  t.is(functionRemoved, fn);
 });
