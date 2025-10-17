@@ -1,11 +1,14 @@
 import * as utils from './utils';
 
+const OMIT_PROPERTY = Symbol('OMIT_PROPERTY');
+
 export interface TrimmerOptions {
   depth: number;
   size: number;
   string: number;
   buffer: boolean;
   getters: boolean;
+  functions: boolean;
   retain: Set<string>;
 }
 
@@ -17,6 +20,7 @@ const defaultOpts: TrimmerOptions = {
   string: 512,
   buffer: true,
   getters: true,
+  functions: true,
   retain: new Set(),
 };
 
@@ -37,7 +41,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
   }
 
   if (typeof node === 'function') {
-    return '[Function]';
+    return opts.functions ? '[Function]' : OMIT_PROPERTY;
   }
 
   if (node instanceof Date) {
@@ -83,7 +87,10 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
       continue;
     }
 
-    output[key] = walker(opts, node[key], depth + 1);
+    const result = walker(opts, node[key], depth + 1);
+    if (result !== OMIT_PROPERTY) {
+      output[key] = result;
+    }
   }
 
   if (opts.getters === false) {
@@ -92,7 +99,10 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
       const methods = Object.getOwnPropertyDescriptors(prototype);
       for (const key in methods) {
         if (methods[key].get) {
-          output[key] = walker(opts, node[key], depth + 1);
+          const result = walker(opts, node[key], depth + 1);
+          if (result !== OMIT_PROPERTY) {
+            output[key] = result;
+          }
         }
       }
     }
@@ -108,6 +118,7 @@ export const trimmer = (userOpts?: TrimmerOptionsInput) => {
       return input;
     }
 
-    return walker(opts, input, 0);
+    const result = walker(opts, input, 0);
+    return result === OMIT_PROPERTY ? undefined : result;
   };
 };
