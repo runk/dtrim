@@ -1,6 +1,9 @@
 import * as utils from './utils';
 
 const OMIT_PROPERTY = Symbol('OMIT_PROPERTY');
+const FUNCTION_STUB = '[Function]';
+const GETTER_STUB = '[Getter]';
+const OBJECT_STUB = '[Object]';
 
 export interface TrimmerOptions {
   depth: number;
@@ -41,7 +44,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
   }
 
   if (typeof node === 'function') {
-    return opts.functions ? '[Function]' : OMIT_PROPERTY;
+    return opts.functions ? FUNCTION_STUB : OMIT_PROPERTY;
   }
 
   if (node instanceof Date) {
@@ -49,7 +52,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
   }
 
   if (depth >= opts.depth) {
-    return '[Object]';
+    return OBJECT_STUB;
   }
 
   if (Buffer.isBuffer(node)) {
@@ -83,7 +86,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
       opts.getters === true &&
       Object.getOwnPropertyDescriptor(node, key)?.get
     ) {
-      output[key] = '[Getter]';
+      output[key] = GETTER_STUB;
       continue;
     }
 
@@ -115,6 +118,10 @@ export const trimmer = (userOpts?: TrimmerOptionsInput) => {
   const opts = { ...defaultOpts, ...userOpts };
   return (input: any): any => {
     if (typeof input !== 'object' || input === null) {
+      if (typeof input === 'function') {
+        return opts.functions ? FUNCTION_STUB : undefined;
+      }
+
       return input;
     }
 

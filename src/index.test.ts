@@ -197,7 +197,7 @@ test('rule: #ignore', (t) => {
   });
 });
 
-test('rule: #removeFunctions', (t) => {
+test('rule: #functions', (t) => {
   const input = {
     regularProp: 'value',
     fn: () => 'function',
@@ -234,8 +234,8 @@ test('rule: #removeFunctions', (t) => {
 
   const fn = () => {};
   const functionOnly = trimmerFactory()(fn);
-  t.is(functionOnly, fn);
+  t.is(functionOnly, '[Function]');
 
   const functionRemoved = trimmerFactory({ functions: false })(fn);
-  t.is(functionRemoved, fn);
+  t.deepEqual(functionRemoved, undefined);
 });
