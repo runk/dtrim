@@ -22,10 +22,7 @@
   "files": [
     "lib"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/runk/dtrim"
-  },
+  "repository": "https://github.com/runk/dtrim",
   "author": "Dmitry Shirokov <deadrunk@gmail.com>",
   "contributors": [
     "Sam Chung @samchungy"
