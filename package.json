@@ -38,7 +38,7 @@
     "@types/node": "24.10.9",
     "ava": "^6.0.0",
     "benchmark": "2.1.4",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "prettier": "^3.0.0",
     "semantic-release": "25.0.2",
     "ts-node": "10.9.2",
