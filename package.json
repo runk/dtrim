@@ -40,7 +40,7 @@
     "benchmark": "2.1.4",
     "lodash": "4.17.23",
     "prettier": "^3.0.0",
-    "semantic-release": "25.0.2",
+    "semantic-release": "25.0.3",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   },
