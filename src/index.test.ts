@@ -239,3 +239,45 @@ test('rule: #functions', (t) => {
   const functionRemoved = trimmerFactory({ functions: false })(fn);
   t.deepEqual(functionRemoved, undefined);
 });
+
+test('handles enumerable prototype getters that are not own properties', (t) => {
+  const privateField = new WeakMap();
+
+  class URLSearchParamsLike {
+    constructor() {
+      privateField.set(this, []);
+    }
+  }
+
+  Object.defineProperty(URLSearchParamsLike.prototype, 'size', {
+    get() {
+      if (!privateField.has(this)) {
+        const err: any = new TypeError(
+          'Value of "this" must be of type URLSearchParams'
+        );
+        err.code = 'ERR_INVALID_THIS';
+        throw err;
+      }
+      return privateField.get(this)!.length;
+    },
+    enumerable: true,
+  });
+
+  const target = new URLSearchParamsLike();
+
+  const proxy = new Proxy(target, {
+    get(target, prop, receiver) {
+      return Reflect.get(target, prop, receiver);
+    },
+  });
+
+  const err = t.throws(() => {
+    return (proxy as any).size;
+  });
+  t.regex(err.message, /Value of "this" must be of type URLSearchParams/);
+
+  t.notThrows(() => {
+    const result = defaultTrimmer(proxy);
+    t.is(typeof result, 'object');
+  });
+});

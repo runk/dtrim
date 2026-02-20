@@ -76,7 +76,7 @@ const walker = (opts: TrimmerOptions, node: any, depth: number): any => {
     output.name = node.name;
   }
 
-  for (const key in node) {
+  for (const key of Object.keys(node)) {
     if (depth === 0 && opts.retain.has(key)) {
       output[key] = node[key];
       continue;
