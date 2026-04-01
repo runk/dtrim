@@ -17,7 +17,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "benchmark": "ts-node tools/benchmark.ts",
-    "prepublish": "npm run build",
     "semantic-release": "semantic-release"
   },
   "files": [
