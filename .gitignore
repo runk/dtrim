@@ -5,3 +5,4 @@ coverage
 *.todo
 lib
 package-lock.json
+.DS_Store

@@ -1,5 +1,6 @@
-import * as utils from './utils';
-import test, { ExecutionContext } from 'ava';
+import * as utils from './utils.ts';
+import test from 'ava';
+import type { ExecutionContext } from 'ava';
 
 (() => {
   const helper = (t: ExecutionContext, input: any, expected: string) =>

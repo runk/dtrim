@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import { trimmer as trimmerFactory } from '.';
+import { trimmer as trimmerFactory } from './index.ts';
 import test from 'ava';
 
-import fixtureLarge from './__mocks__/fixture-large';
-import fixtureRealWorld from './__mocks__/fixture-real-world';
-import fixtureTypes from './__mocks__/fixture-types';
+import fixtureLarge from './__mocks__/fixture-large.ts';
+import fixtureRealWorld from './__mocks__/fixture-real-world.ts';
+import fixtureTypes from './__mocks__/fixture-types.ts';
 
 const defaultTrimmer = trimmerFactory({
   depth: 3,

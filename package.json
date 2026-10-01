@@ -1,7 +1,7 @@
 {
   "name": "dtrim",
   "version": "0.0.0-development",
-  "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
+  "description": "A tool for trimming deep/lengthy javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "keywords": [
     "trimming",
     "sanitization",
@@ -37,7 +37,7 @@
     "lodash": "4.18.1",
     "prettier": "^3.0.0",
     "semantic-release": "25.0.9",
-    "ts-node": "10.9.2",
+    "tsx": "^4.23.15",
     "typescript": "7.0.2"
   },
   "ava": {
@@ -47,8 +47,8 @@
     "files": [
       "**/*.test.ts"
     ],
-    "require": [
-      "ts-node/register"
+    "nodeArguments": [
+      "--import=tsx"
     ]
   },
   "dependencies": {}

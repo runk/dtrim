@@ -1,4 +1,4 @@
-import * as utils from './utils';
+import * as utils from './utils.ts';
 
 const OMIT_PROPERTY = Symbol('OMIT_PROPERTY');
 const FUNCTION_STUB = '[Function]';
