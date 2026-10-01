@@ -13,10 +13,10 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "test": "ava",
+    "test": "vitest run",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "benchmark": "ts-node tools/benchmark.ts",
+    "benchmark": "tsx tools/benchmark.ts",
     "semantic-release": "semantic-release"
   },
   "files": [
@@ -32,24 +32,13 @@
     "@types/benchmark": "2.1.5",
     "@types/lodash": "4.17.25",
     "@types/node": "24.19.0",
-    "ava": "^8.0.0",
     "benchmark": "2.1.4",
     "lodash": "4.18.1",
     "prettier": "^3.0.0",
     "semantic-release": "25.0.9",
     "tsx": "^4.23.15",
+    "vitest": "^3.2.7",
     "typescript": "7.0.2"
-  },
-  "ava": {
-    "extensions": [
-      "ts"
-    ],
-    "files": [
-      "**/*.test.ts"
-    ],
-    "nodeArguments": [
-      "--import=tsx/esm"
-    ]
   },
   "dependencies": {}
 }

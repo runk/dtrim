@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { trimmer as trimmerFactory } from './index.ts';
-import test from 'ava';
+import { expect, test } from 'vitest';
 
 import fixtureLarge from './__mocks__/fixture-large.ts';
 import fixtureRealWorld from './__mocks__/fixture-real-world.ts';
@@ -12,79 +12,79 @@ const defaultTrimmer = trimmerFactory({
   size: 16,
 });
 
-test('large data sets', (t) => t.snapshot(defaultTrimmer(fixtureLarge)));
+test('large data sets', () => expect(defaultTrimmer(fixtureLarge)).toMatchSnapshot());
 
-test('real world example', (t) => t.snapshot(defaultTrimmer(fixtureRealWorld)));
+test('real world example', () => expect(defaultTrimmer(fixtureRealWorld)).toMatchSnapshot());
 
-test('misc types', (t) => t.snapshot(defaultTrimmer(fixtureTypes)));
+test('misc types', () => expect(defaultTrimmer(fixtureTypes)).toMatchSnapshot());
 
-test('circular structures', (t) => {
+test('circular structures', () => {
   const refA = { foo: 'bar' };
   const refB = { refA, something: 'else' };
   // @ts-ignore
   refA.backref = refB;
-  t.snapshot(defaultTrimmer(refA));
+  expect(defaultTrimmer(refA)).toMatchSnapshot();
 });
 
-test('immutability', (t) => {
+test('immutability', () => {
   const input = { list: _.range(0, 1024) };
   const trimmed = defaultTrimmer(input);
-  t.is(input.list.length, 1024);
-  t.is(trimmed.list, 'Array(1024)');
+  expect(input.list.length).toBe(1024);
+  expect(trimmed.list).toBe('Array(1024)');
 });
 
-test('different data types', (t) => {
-  t.is(defaultTrimmer(false), false);
-  t.is(defaultTrimmer(true), true);
-  t.is(defaultTrimmer('hi'), 'hi');
-  t.is(defaultTrimmer(123), 123);
-  t.is(defaultTrimmer(null), null);
-  t.is(defaultTrimmer(undefined), undefined);
-  t.is(defaultTrimmer(''), '');
-  t.deepEqual(defaultTrimmer([]), []);
-  t.deepEqual(defaultTrimmer(/test/), {});
+test('different data types', () => {
+  expect(defaultTrimmer(false)).toBe(false);
+  expect(defaultTrimmer(true)).toBe(true);
+  expect(defaultTrimmer('hi')).toBe('hi');
+  expect(defaultTrimmer(123)).toBe(123);
+  expect(defaultTrimmer(null)).toBe(null);
+  expect(defaultTrimmer(undefined)).toBe(undefined);
+  expect(defaultTrimmer('')).toBe('');
+  expect(defaultTrimmer([])).toEqual([]);
+  expect(defaultTrimmer(/test/)).toEqual({});
 });
 
-test('errors: basic', (t) => {
+test('errors: basic', () => {
   const output = defaultTrimmer(new Error('Very bad'));
-  t.is(output.message, 'Very bad');
-  t.is(output.name, 'Error');
-  t.regex(output.stack, /^Error: Very bad\n\s+at.{50,}/);
+  expect(output.message).toBe('Very bad');
+  expect(output.name).toBe('Error');
+  expect(output.stack).toMatch(/^Error: Very bad\n\s+at.{50,}/);
 });
 
-test('errors: customized', (t) => {
+test('errors: customized', () => {
   const error = new Error('Very bad');
   // @ts-ignore
   error.extra = { foo: 'bar' };
   const output = defaultTrimmer(error);
-  t.is(output.message, 'Very bad');
-  t.deepEqual(output.extra, { foo: 'bar' });
+  expect(output.message).toBe('Very bad');
+  expect(output.extra).toEqual({ foo: 'bar' });
 });
 
-test('rule: #string', (t) => {
+test('rule: #string', () => {
   const input = { short: 'hi', long: _.repeat('a', 1024) };
-  t.deepEqual(trimmerFactory({ string: 4 })(input), {
+  expect(trimmerFactory({ string: 4 })(input)).toEqual({
     short: 'hi',
     long: 'aaaa...',
   });
 });
 
-test('rule: #buffer', (t) => {
+test('rule: #buffer', () => {
   const input = { buf: Buffer.alloc(8) };
-  t.deepEqual(trimmerFactory({ buffer: true })(input), {
+  expect(trimmerFactory({ buffer: true })(input)).toEqual({
     buf: 'Buffer(8)',
   });
-  t.deepEqual(trimmerFactory({ buffer: false })(input), {
+  expect(trimmerFactory({ buffer: false })(input)).toEqual({
     buf: 'AAAAAAAAAAA=',
   });
 });
 
-test('rule: #depth', (t) => {
+test('rule: #depth', () => {
   const input = {
     deep: _.set({}, 'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.r', 'very deep'),
     shallow: _.set({}, 'a.b', 'quite shallow'),
   };
-  t.deepEqual(trimmerFactory({ depth: 3 })(input), {
+  expect(trimmerFactory({ depth: 3 })(input)).toEqual({
     deep: {
       a: { b: '[Object]' },
     },
@@ -94,7 +94,7 @@ test('rule: #depth', (t) => {
   });
 });
 
-test('rule: #size', (t) => {
+test('rule: #size', () => {
   const bigList = _.range(0, 16);
   const smallList = _.range(0, 2);
   const input = {
@@ -105,7 +105,7 @@ test('rule: #size', (t) => {
   };
 
   const output = trimmerFactory({ size: 5 })(input);
-  t.deepEqual(output, {
+  expect(output).toEqual({
     bigList: 'Array(16)',
     bigObject: 'Object(16)',
     smallList: [0, 1],
@@ -113,7 +113,7 @@ test('rule: #size', (t) => {
   });
 });
 
-test('rule: #getters', (t) => {
+test('rule: #getters', () => {
   class Foo {
     get foo() {
       return 'foo';
@@ -140,7 +140,7 @@ test('rule: #getters', (t) => {
     set,
   };
 
-  t.deepEqual(trimmerFactory({ getters: false })(input), {
+  expect(trimmerFactory({ getters: false })(input)).toEqual({
     foo: {
       foo: 'foo',
     },
@@ -158,7 +158,7 @@ test('rule: #getters', (t) => {
     },
   });
 
-  t.deepEqual(trimmerFactory({ getters: true })(input), {
+  expect(trimmerFactory({ getters: true })(input)).toEqual({
     foo: {},
     object: {
       getter: '[Getter]',
@@ -169,7 +169,7 @@ test('rule: #getters', (t) => {
   });
 });
 
-test('rule: #ignore', (t) => {
+test('rule: #ignore', () => {
   class Foo {
     get foo() {
       return 'foo';
@@ -190,14 +190,14 @@ test('rule: #ignore', (t) => {
     retain: new Set(['a', 'c']),
   })(input);
 
-  t.deepEqual(output, {
+  expect(output).toEqual({
     a: foo,
     b: {},
     c: foo,
   });
 });
 
-test('rule: #functions', (t) => {
+test('rule: #functions', () => {
   const input = {
     regularProp: 'value',
     fn: () => 'function',
@@ -212,7 +212,7 @@ test('rule: #functions', (t) => {
   };
 
   const defaultOutput = trimmerFactory()(input);
-  t.deepEqual(defaultOutput, {
+  expect(defaultOutput).toEqual({
     regularProp: 'value',
     fn: '[Function]',
     anotherProp: 42,
@@ -224,7 +224,7 @@ test('rule: #functions', (t) => {
   });
 
   const removeFunctionsOutput = trimmerFactory({ functions: false })(input);
-  t.deepEqual(removeFunctionsOutput, {
+  expect(removeFunctionsOutput).toEqual({
     regularProp: 'value',
     anotherProp: 42,
     nested: {
@@ -234,13 +234,13 @@ test('rule: #functions', (t) => {
 
   const fn = () => {};
   const functionOnly = trimmerFactory()(fn);
-  t.is(functionOnly, '[Function]');
+  expect(functionOnly).toBe('[Function]');
 
   const functionRemoved = trimmerFactory({ functions: false })(fn);
-  t.deepEqual(functionRemoved, undefined);
+  expect(functionRemoved).toBe(undefined);
 });
 
-test('handles enumerable prototype getters that are not own properties', (t) => {
+test('handles enumerable prototype getters that are not own properties', () => {
   const privateField = new WeakMap();
 
   class URLSearchParamsLike {
@@ -271,13 +271,12 @@ test('handles enumerable prototype getters that are not own properties', (t) => 
     },
   });
 
-  const err = t.throws(() => {
-    return (proxy as any).size;
-  });
-  t.regex(err.message, /Value of "this" must be of type URLSearchParams/);
+  expect(() => (proxy as any).size).toThrow(
+    /Value of "this" must be of type URLSearchParams/
+  );
 
-  t.notThrows(() => {
+  expect(() => {
     const result = defaultTrimmer(proxy);
-    t.is(typeof result, 'object');
-  });
+    expect(typeof result).toBe('object');
+  }).not.toThrow();
 });
