@@ -12,11 +12,14 @@ const defaultTrimmer = trimmerFactory({
   size: 16,
 });
 
-test('large data sets', () => expect(defaultTrimmer(fixtureLarge)).toMatchSnapshot());
+test('large data sets', () =>
+  expect(defaultTrimmer(fixtureLarge)).toMatchSnapshot());
 
-test('real world example', () => expect(defaultTrimmer(fixtureRealWorld)).toMatchSnapshot());
+test('real world example', () =>
+  expect(defaultTrimmer(fixtureRealWorld)).toMatchSnapshot());
 
-test('misc types', () => expect(defaultTrimmer(fixtureTypes)).toMatchSnapshot());
+test('misc types', () =>
+  expect(defaultTrimmer(fixtureTypes)).toMatchSnapshot());
 
 test('circular structures', () => {
   const refA = { foo: 'bar' };
