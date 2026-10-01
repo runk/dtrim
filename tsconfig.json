@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "esModuleInterop": true,
     "extendedDiagnostics": true,
@@ -16,6 +17,7 @@
     "rootDir": "src",
     "preserveConstEnums": true,
     "removeComments": true,
+    "rewriteRelativeImportExtensions": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,

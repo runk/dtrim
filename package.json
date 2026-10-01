@@ -1,7 +1,7 @@
 {
   "name": "dtrim",
   "version": "0.0.0-development",
-  "description": "A tool for trimming deep/lenghty javascript structures. Some potential usages are: debugging, logging or data sanitization.",
+  "description": "A tool for trimming deep/lengthy javascript structures. Some potential usages are: debugging, logging or data sanitization.",
   "keywords": [
     "trimming",
     "sanitization",
@@ -13,19 +13,16 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "test": "ava",
+    "test": "vitest run",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "benchmark": "ts-node tools/benchmark.ts",
+    "benchmark": "tsx tools/benchmark.ts",
     "semantic-release": "semantic-release"
   },
   "files": [
     "lib"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/runk/dtrim"
-  },
+  "repository": "https://github.com/runk/dtrim",
   "author": "Dmitry Shirokov <deadrunk@gmail.com>",
   "contributors": [
     "Sam Chung @samchungy"
@@ -35,24 +32,13 @@
     "@types/benchmark": "2.1.5",
     "@types/lodash": "4.17.25",
     "@types/node": "24.19.0",
-    "ava": "^8.0.0",
     "benchmark": "2.1.4",
     "lodash": "4.18.1",
     "prettier": "^3.0.0",
     "semantic-release": "25.0.9",
-    "ts-node": "10.9.2",
+    "tsx": "^4.23.15",
+    "vitest": "^3.2.7",
     "typescript": "7.0.2"
-  },
-  "ava": {
-    "extensions": [
-      "ts"
-    ],
-    "files": [
-      "**/*.test.ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
   },
   "dependencies": {}
 }
