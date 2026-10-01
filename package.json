@@ -48,7 +48,7 @@
       "**/*.test.ts"
     ],
     "nodeArguments": [
-      "--import=tsx"
+      "--import=tsx/esm"
     ]
   },
   "dependencies": {}
